@@ -60,8 +60,9 @@
 (defvar instant-markdown:server-proc nil)
 
 (defun instant-markdown:start-sentinel (process state)
+  (message "@@ %s" state)
   (unless instant-markdown:server-proc
-    (setq instant-markdown:server-proc process)))
+))
 
 ;;;###autoload
 (defun instant-markdown:start ()
@@ -71,7 +72,8 @@
                                "instant-markdown-d")))
       (unless proc
         (error "Failed exec `instant-markdown-d'"))
-      (set-process-sentinel proc #'instant-markdown:start-sentinel))))
+      (sit-for 0.5)
+      (setq instant-markdown:server-proc proc))))
 
 (defun instant-markdown:stop-callback ()
   (kill-process instant-markdown:server-proc)
@@ -83,6 +85,11 @@
   (when instant-markdown:server-proc
     (error "`instant-markdown-d' does not started"))
   (instant-markdown:request "DELETE" nil #'instant-markdown:stop-callback))
+
+(add-hook 'post-command-hook
+          (lambda ()
+            (when instant-markdown:server-proc
+              (instant-markdown:refresh))))
 
 (provide 'instant-markdown)
 
