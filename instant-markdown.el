@@ -76,7 +76,7 @@
     (let ((proc (start-process "instant-markdown-d" "*instant-markdown-d*"
                                instant-markdown:executable)))
       (unless proc
-        (error "Failed exec `instant-markdown-d'"))
+        (error (format "Failed exec `%s'" instant-markdown:executable)))
       (sit-for 0.5)
       (setq instant-markdown:server-proc proc))))
 
@@ -88,7 +88,7 @@
 (defun instant-markdown:stop ()
   (interactive)
   (unless instant-markdown:server-proc
-    (error "`instant-markdown-d' does not started"))
+    (error (format "`%s' does not started" instant-markdown:executable)))
   (instant-markdown:request "DELETE" nil #'instant-markdown:stop-callback))
 
 (add-hook 'post-command-hook
