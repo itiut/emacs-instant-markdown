@@ -82,7 +82,7 @@
 ;;;###autoload
 (defun instant-markdown:stop ()
   (interactive)
-  (when instant-markdown:server-proc
+  (unless instant-markdown:server-proc
     (error "`instant-markdown-d' does not started"))
   (instant-markdown:request "DELETE" nil #'instant-markdown:stop-callback))
 
