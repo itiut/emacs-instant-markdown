@@ -33,6 +33,11 @@
   "Emacs `instant-markdown' client"
   :group 'markdown)
 
+(defcustom instant-markdown:executable "instant-markdown-d"
+  "The path of the instant-markdown-d executable."
+  :type 'string
+  :group 'instant-markdown)
+
 (defcustom instant-markdown:port 8090
   "Port number of `instant-markdown'"
   :type 'integer
@@ -69,7 +74,7 @@
   (interactive)
   (unless instant-markdown:server-proc
     (let ((proc (start-process "instant-markdown-d" "*instant-markdown-d*"
-                               "instant-markdown-d")))
+                               instant-markdown:executable)))
       (unless proc
         (error "Failed exec `instant-markdown-d'"))
       (sit-for 0.5)
