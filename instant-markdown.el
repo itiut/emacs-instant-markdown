@@ -80,7 +80,7 @@
       (sit-for 0.5)
       (setq instant-markdown:server-proc proc))))
 
-(defun instant-markdown:stop-callback ()
+(defun instant-markdown:stop-callback (status)
   (kill-process instant-markdown:server-proc)
   (setq instant-markdown:server-proc nil))
 
