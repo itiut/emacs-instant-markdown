@@ -54,7 +54,7 @@
         (url-request-data input)
         (url-request-extra-headers '(("Content-Type" . "text/x-markdown")))
         (callback (or cb #'instant-markdown:default-callback)))
-    (url-retrieve "http://localhost:8090/" callback)))
+    (url-retrieve (instant-markdown:request-url) callback)))
 
 ;;;###autoload
 (defun instant-markdown:refresh ()
