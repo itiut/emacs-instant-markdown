@@ -34,7 +34,7 @@
   :group 'markdown)
 
 (defcustom instant-markdown:port 8090
-  "Port number of `instant-mark-d'"
+  "Port number of `instant-markdown'"
   :type 'integer
   :group 'instant-markdown)
 
