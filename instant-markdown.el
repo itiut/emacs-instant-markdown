@@ -78,7 +78,8 @@
       (unless proc
         (error (format "Failed exec `%s'" instant-markdown:executable)))
       (sit-for 0.5)
-      (setq instant-markdown:server-proc proc))))
+      (setq instant-markdown:server-proc proc)
+      (instant-markdown:add-local-hook))))
 
 (defun instant-markdown:stop-callback (status)
   (kill-process instant-markdown:server-proc)
@@ -89,8 +90,14 @@
   (interactive)
   (unless instant-markdown:server-proc
     (error (format "`%s' does not started" instant-markdown:executable)))
-  (instant-markdown:request "DELETE" nil #'instant-markdown:stop-callback))
+  (instant-markdown:request "DELETE" nil #'instant-markdown:stop-callback)
+  (instant-markdown:remove-local-hook))
 
+(defun instant-markdown:add-local-hook ()
+  (add-hook 'after-save-hook 'instant-markdown:refresh nil t))
+
+(defun instant-markdown:remove-local-hook ()
+  (remove-hook 'after-save-hook 'instant-markdown:refresh t))
 
 (provide 'instant-markdown)
 
