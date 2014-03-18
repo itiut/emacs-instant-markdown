@@ -38,6 +38,11 @@
   :type 'string
   :group 'instant-markdown)
 
+(defcustom instnat-markdown:enable-auto-refresh t
+  "Enable auto refresh after save."
+  :type 'boolean
+  :group 'instant-markdown)
+
 (defcustom instant-markdown:port 8090
   "Port number of `instant-markdown'"
   :type 'integer
@@ -78,7 +83,8 @@
       (unless proc
         (error (format "Failed exec `%s'" instant-markdown:executable)))
       (sit-for 0.5)
-      (setq instant-markdown:server-proc proc)
+      (setq instant-markdown:server-proc proc))
+    (when instnat-markdown:enable-auto-refresh
       (instant-markdown:add-local-hook))))
 
 (defun instant-markdown:stop-callback (status)
@@ -91,7 +97,8 @@
   (unless instant-markdown:server-proc
     (error (format "`%s' does not started" instant-markdown:executable)))
   (instant-markdown:request "DELETE" nil #'instant-markdown:stop-callback)
-  (instant-markdown:remove-local-hook))
+  (when instnat-markdown:enable-auto-refresh
+    (instant-markdown:remove-local-hook)))
 
 (defun instant-markdown:add-local-hook ()
   (add-hook 'after-save-hook 'instant-markdown:refresh nil t))
