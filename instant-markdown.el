@@ -91,10 +91,6 @@
     (error (format "`%s' does not started" instant-markdown:executable)))
   (instant-markdown:request "DELETE" nil #'instant-markdown:stop-callback))
 
-(add-hook 'post-command-hook
-          (lambda ()
-            (when instant-markdown:server-proc
-              (instant-markdown:refresh))))
 
 (provide 'instant-markdown)
 
