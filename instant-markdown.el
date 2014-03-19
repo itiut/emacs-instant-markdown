@@ -43,6 +43,11 @@
   :type 'number
   :group 'instant-markdown)
 
+(defcustom instant-markdown:turn-on-auto-refresh-delay 2
+  "The number of seconds of delay time from enabling instant-markdown-mode to turning on auto refresh."
+  :type 'number
+  :group 'instant-markdown)
+
 (defcustom instant-markdown:port 8090
   "Port number of `instant-markdown'"
   :type 'integer
@@ -106,7 +111,9 @@
   (instant-markdown:turn-off-auto-refresh))
 
 (defun instant-markdown:turn-on-auto-refresh ()
-  (instant-markdown:update-timer instant-markdown:idle-delay))
+  (run-at-time instant-markdown:turn-on-auto-refresh-delay nil
+               '(lambda ()
+                  (instant-markdown:update-timer instant-markdown:idle-delay))))
 
 (defun instant-markdown:turn-off-auto-refresh ()
   (instant-markdown:cancel-timer)
