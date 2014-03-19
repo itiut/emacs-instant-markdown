@@ -71,11 +71,12 @@
 (defvar instant-markdown:modified-tick-last nil)
 
 (defun instant-markdown:refresh-if-buffer-modified ()
-  (let ((modified-tick (buffer-modified-tick)))
-    (when (or (not (numberp instant-markdown:modified-tick-last))
-              (/= instant-markdown:modified-tick-last modified-tick))
-      (setq instant-markdown:modified-tick-last modified-tick)
-      (instant-markdown:refresh))))
+  (when instant-markdown-mode
+    (let ((modified-tick (buffer-modified-tick)))
+      (when (or (not (numberp instant-markdown:modified-tick-last))
+                (/= instant-markdown:modified-tick-last modified-tick))
+        (setq instant-markdown:modified-tick-last modified-tick)
+        (instant-markdown:refresh)))))
 
 (defun instant-markdown:refresh ()
   (let ((markdown (buffer-substring-no-properties (point-min) (point-max))))
