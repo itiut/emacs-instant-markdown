@@ -113,8 +113,7 @@
 (defvar instant-markdown:timer nil)
 
 (defun instant-markdown:update-timer (value)
-  (when instant-markdown:timer
-    (cancel-timer instant-markdown:timer))
+  (instant-markdown:cancel-timer)
   (setq instant-markdown:timer
         (and value (/= value 0)
              (run-with-idle-timer value 'repeat 'instant-markdown:refresh-if-buffer-modified))))
