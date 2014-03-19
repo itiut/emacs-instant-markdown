@@ -71,24 +71,19 @@
 (defvar instant-markdown:modified-tick-last nil)
 
 (defun instant-markdown:refresh-if-buffer-modified ()
-  (interactive)
   (let ((modified-tick (buffer-modified-tick)))
     (when (or (not (numberp instant-markdown:modified-tick-last))
               (/= instant-markdown:modified-tick-last modified-tick))
       (setq instant-markdown:modified-tick-last modified-tick)
       (instant-markdown:refresh))))
 
-;;;###autoload
 (defun instant-markdown:refresh ()
-  (interactive)
   (let ((markdown (buffer-substring-no-properties (point-min) (point-max))))
     (instant-markdown:request "PUT" markdown)))
 
 (defvar instant-markdown:server-proc nil)
 
-;;;###autoload
 (defun instant-markdown:start ()
-  (interactive)
   (unless instant-markdown:server-proc
     (let ((proc (start-process "instant-markdown-d" "*instant-markdown-d*"
                                instant-markdown:executable)))
@@ -102,9 +97,7 @@
   (kill-process instant-markdown:server-proc)
   (setq instant-markdown:server-proc nil))
 
-;;;###autoload
 (defun instant-markdown:stop ()
-  (interactive)
   (unless instant-markdown:server-proc
     (error (format "`%s' does not started" instant-markdown:executable)))
   (instant-markdown:request "DELETE" nil #'instant-markdown:stop-callback)
