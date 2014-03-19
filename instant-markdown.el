@@ -61,6 +61,16 @@
         (callback (or cb #'instant-markdown:default-callback)))
     (url-retrieve (instant-markdown:request-url) callback)))
 
+(defvar instant-markdown:buffer-modified-tick-last nil)
+
+(defun instant-markdown:refresh-if-buffer-modified ()
+  (interactive)
+  (let ((modified-tick (buffer-modified-tick)))
+    (when (or (not (numberp instant-markdown:buffer-modified-tick-last))
+              (/= instant-markdown:buffer-modified-tick-last modified-tick))
+      (setq instant-markdown:buffer-modified-tick-last modified-tick)
+      (instant-markdown:refresh))))
+
 ;;;###autoload
 (defun instant-markdown:refresh ()
   (interactive)
