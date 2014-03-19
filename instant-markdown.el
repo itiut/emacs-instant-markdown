@@ -108,7 +108,8 @@
   (instant-markdown:update-timer instant-markdown:idle-delay))
 
 (defun instant-markdown:turn-off-auto-refresh ()
-  (instant-markdown:cancel-timer))
+  (instant-markdown:cancel-timer)
+  (setq instant-markdown:modified-tick-last nil))
 
 (defvar instant-markdown:timer nil)
 
