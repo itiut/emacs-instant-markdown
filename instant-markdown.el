@@ -44,8 +44,7 @@
   :group 'instant-markdown)
 
 (defcustom instant-markdown:idle-delay 1
-  "The number of secons of idle delay time before
-If this variable is set to 0, "
+  "The number of seconds of idle delay time before auto refreshing."
   :type 'number
   :group 'instant-markdown)
 
