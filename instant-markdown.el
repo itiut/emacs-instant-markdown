@@ -53,6 +53,8 @@
   :type 'string
   :group 'instant-markdown)
 
+(defvar instant-markdown-mode nil)
+
 (defun instant-markdown:default-callback (status)
   (message "%s" status))
 
@@ -126,8 +128,6 @@
 (defun instant-markdown:cancel-timer ()
   (when instant-markdown:timer
     (cancel-timer instant-markdown:timer)))
-
-(defvar instant-markdown-mode nil)
 
 ;;;###autoload
 (define-minor-mode instant-markdown-mode
