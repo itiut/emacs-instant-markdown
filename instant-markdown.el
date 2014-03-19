@@ -38,11 +38,6 @@
   :type 'string
   :group 'instant-markdown)
 
-(defcustom instnat-markdown:enable-auto-refresh t
-  "Enable auto refresh after save."
-  :type 'boolean
-  :group 'instant-markdown)
-
 (defcustom instant-markdown:idle-delay 1
   "The number of seconds of idle delay time before auto refreshing."
   :type 'number
@@ -118,12 +113,6 @@
 
 (defun instant-markdown:turn-off-auto-refresh ()
   (instant-markdown:cancel-timer))
-
-(defun instant-markdown:add-local-hook ()
-  (add-hook 'after-save-hook 'instant-markdown:refresh nil t))
-
-(defun instant-markdown:remove-local-hook ()
-  (remove-hook 'after-save-hook 'instant-markdown:refresh t))
 
 (defvar instant-markdown:timer nil)
 
