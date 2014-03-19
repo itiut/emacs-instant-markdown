@@ -43,6 +43,12 @@
   :type 'boolean
   :group 'instant-markdown)
 
+(defcustom instant-markdown:idle-delay 1
+  "The number of secons of idle delay time before
+If this variable is set to 0, "
+  :type 'number
+  :group 'instant-markdown)
+
 (defcustom instant-markdown:port 8090
   "Port number of `instant-markdown'"
   :type 'integer
@@ -95,7 +101,8 @@
       (sit-for 0.5)
       (setq instant-markdown:server-proc proc))
     (when instnat-markdown:enable-auto-refresh
-      (instant-markdown:add-local-hook))))
+      (instant-markdown:add-local-hook)
+      (instant-markdown:update-timer instant-markdown:idle-delay))))
 
 (defun instant-markdown:stop-callback (status)
   (kill-process instant-markdown:server-proc)
@@ -108,13 +115,27 @@
     (error (format "`%s' does not started" instant-markdown:executable)))
   (instant-markdown:request "DELETE" nil #'instant-markdown:stop-callback)
   (when instnat-markdown:enable-auto-refresh
-    (instant-markdown:remove-local-hook)))
+    (instant-markdown:remove-local-hook)
+    (instant-markdown:cancel-timer)))
 
 (defun instant-markdown:add-local-hook ()
   (add-hook 'after-save-hook 'instant-markdown:refresh nil t))
 
 (defun instant-markdown:remove-local-hook ()
   (remove-hook 'after-save-hook 'instant-markdown:refresh t))
+
+(defvar instant-markdown:timer nil)
+
+(defun instant-markdown:update-timer (value)
+  (when instant-markdown:timer
+    (cancel-timer instant-markdown:timer))
+  (setq instant-markdown:timer
+        (and value (/= value 0)
+             (run-with-idle-timer value 'repeat 'instant-markdown:refresh-if-buffer-modified))))
+
+(defun instant-markdown:cancel-timer ()
+  (when instant-markdown:timer
+    (cancel-timer instant-markdown:timer)))
 
 (provide 'instant-markdown)
 
