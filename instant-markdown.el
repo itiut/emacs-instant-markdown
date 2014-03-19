@@ -95,7 +95,8 @@
     (instant-markdown:turn-on-auto-refresh)))
 
 (defun instant-markdown:stop-callback (status)
-  (kill-process instant-markdown:server-proc)
+  (when (process-live-p instant-markdown:server-proc)
+    (kill-process instant-markdown:server-proc))
   (setq instant-markdown:server-proc nil))
 
 (defun instant-markdown:stop ()
