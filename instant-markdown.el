@@ -84,11 +84,6 @@
 
 (defvar instant-markdown:server-proc nil)
 
-(defun instant-markdown:start-sentinel (process state)
-  (message "@@ %s" state)
-  (unless instant-markdown:server-proc
-))
-
 ;;;###autoload
 (defun instant-markdown:start ()
   (interactive)
