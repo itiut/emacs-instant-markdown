@@ -72,7 +72,7 @@
 
 (defun instant-markdown:refresh-if-buffer-modified ()
   (when instant-markdown-mode
-    (let ((modified-tick (buffer-modified-tick)))
+    (let ((modified-tick (buffer-chars-modified-tick)))
       (when (or (not (numberp instant-markdown:modified-tick-last))
                 (/= instant-markdown:modified-tick-last modified-tick))
         (setq instant-markdown:modified-tick-last modified-tick)
