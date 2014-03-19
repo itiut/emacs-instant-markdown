@@ -99,9 +99,7 @@
         (error (format "Failed exec `%s'" instant-markdown:executable)))
       (sit-for 0.5)
       (setq instant-markdown:server-proc proc))
-    (when instnat-markdown:enable-auto-refresh
-      (instant-markdown:add-local-hook)
-      (instant-markdown:update-timer instant-markdown:idle-delay))))
+    (instant-markdown:turn-on-auto-refresh)))
 
 (defun instant-markdown:stop-callback (status)
   (kill-process instant-markdown:server-proc)
@@ -113,9 +111,13 @@
   (unless instant-markdown:server-proc
     (error (format "`%s' does not started" instant-markdown:executable)))
   (instant-markdown:request "DELETE" nil #'instant-markdown:stop-callback)
-  (when instnat-markdown:enable-auto-refresh
-    (instant-markdown:remove-local-hook)
-    (instant-markdown:cancel-timer)))
+  (instant-markdown:turn-off-auto-refresh))
+
+(defun instant-markdown:turn-on-auto-refresh ()
+  (instant-markdown:update-timer instant-markdown:idle-delay))
+
+(defun instant-markdown:turn-off-auto-refresh ()
+  (instant-markdown:cancel-timer))
 
 (defun instant-markdown:add-local-hook ()
   (add-hook 'after-save-hook 'instant-markdown:refresh nil t))
