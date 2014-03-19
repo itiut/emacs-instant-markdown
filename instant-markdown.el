@@ -48,6 +48,11 @@
   :type 'integer
   :group 'instant-markdown)
 
+(defcustom instant-markdown-mode-lighter " i-md"
+  "Lighter of instant-markdown-mode."
+  :type 'string
+  :group 'instant-markdown)
+
 (defun instant-markdown:default-callback (status)
   (message "%s" status))
 
@@ -126,6 +131,17 @@
 (defun instant-markdown:cancel-timer ()
   (when instant-markdown:timer
     (cancel-timer instant-markdown:timer)))
+
+(defvar instant-markdown-mode nil)
+
+;;;###autoload
+(define-minor-mode instant-markdown-mode
+  "Minor mode for previewing markdown via instant-markdown-d."
+  :lighter instant-markdown-mode-lighter
+  :group 'instant-markdown
+  (if instant-markdown-mode
+      (instant-markdown:start)
+    (instant-markdown:stop)))
 
 (provide 'instant-markdown)
 
