@@ -130,7 +130,9 @@
   :group 'instant-markdown
   (if instant-markdown-mode
       (instant-markdown:start)
-    (instant-markdown:stop)))
+    (progn
+      (instant-markdown:stop)
+      (message "Instant-Markdown mode disabled"))))
 
 (provide 'instant-markdown)
 
