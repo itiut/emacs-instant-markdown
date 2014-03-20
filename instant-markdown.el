@@ -38,9 +38,9 @@
   :type 'string
   :group 'instant-markdown)
 
-(defcustom instant-markdown:idle-delay 0.25
-  "The number of seconds of idle delay time before auto refreshing."
-  :type 'number
+(defcustom instant-markdown:port 8090
+  "Port number of `instant-markdown'"
+  :type 'integer
   :group 'instant-markdown)
 
 (defcustom instant-markdown:turn-on-auto-refresh-delay 1
@@ -48,9 +48,9 @@
   :type 'number
   :group 'instant-markdown)
 
-(defcustom instant-markdown:port 8090
-  "Port number of `instant-markdown'"
-  :type 'integer
+(defcustom instant-markdown:idle-delay 0.25
+  "The number of seconds of idle delay time before auto refreshing."
+  :type 'number
   :group 'instant-markdown)
 
 (defcustom instant-markdown-mode-lighter " i-md"
