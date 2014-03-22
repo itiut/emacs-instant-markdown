@@ -1,9 +1,9 @@
-;;; instant-markdown.el ---
+;;; instant-markdown.el --- A instant-markdown-d client for GNU Emacs
 
 ;; Copyright (C) 2012 by Syohei YOSHIDA
 
 ;; Author: Syohei YOSHIDA <syohex@gmail.com>
-;; URL:
+;; URL: https://github.com/itiut/emacs-instant-markdown
 ;; Version: 0.01
 
 ;; This program is free software; you can redistribute it and/or modify
@@ -20,6 +20,11 @@
 ;; along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 ;;; Commentary:
+
+;; Preview Markdown files in your browser by instant-markdown-d.
+;; This requires instant-markdown-d to be installed.
+;; To get information about instant-markdown-d, visit
+;; https://github.com/suan/instant-markdown-d
 
 ;;; Code:
 
